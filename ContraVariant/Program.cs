@@ -129,16 +129,19 @@ public interface IValidator<in T>
         // We're constraining T to Payment
      public static IEnumerable<Payment> WherePaymentAmountGraterThanZero(this IEnumerable<Payment> source, Func<Payment, bool> predicate)
      {
-         List<Payment> result = new();
-         foreach (var item in source)
-         {
-             if (predicate(item))
-             {
-                 result.Add(item);
-             }
-         }
-
-         return result.ToArray();
+         //We can use Where linq expression here instead of the foreach loop, both are valid
+         return source.Where(predicate);
+        
+         // List<Payment> result = new();
+         // foreach (var item in source)
+         // {
+         //     if (predicate(item))
+         //     {
+         //         result.Add(item);
+         //     }
+         // }
+         //
+         // return result.ToArray();
      }
      
  }
